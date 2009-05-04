@@ -3262,6 +3262,14 @@ public:
     // Assumes in correct section after the entry point.
     EmitLabel("func_begin", ++SubprogramCount);
 
+    DebugLoc FDL = MF->getDefaultDebugLoc();
+    if (!FDL.isUnknown()) {
+      DebugLocTuple DLT = MF->getDebugLocTuple(FDL);
+      unsigned LabelID = RecordSourceLine(DLT.Line, DLT.Col,
+                                          DICompileUnit(DLT.CompileUnit));
+      Asm->printLabel(LabelID);
+    }
+
     if (TimePassesIsEnabled)
       DebugTimer->stopTimer();
   }

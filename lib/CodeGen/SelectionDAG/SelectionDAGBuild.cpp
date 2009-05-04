@@ -3992,7 +3992,7 @@ SelectionDAGLowering::visitIntrinsicCall(CallInst &I, unsigned Intrinsic) {
       } else {
         // Record the source line.
         unsigned Line = Subprogram.getLineNumber();
-        setCurDebugLoc(DebugLoc::get(
+        MF.setDefaultDebugLoc(DebugLoc::get(
                      MF.getOrCreateDebugLocID(CompileUnit.getGV(), Line, 0)));
         if (DW && DW->ShouldEmitDwarfDebug()) {
           // llvm.dbg.func_start also defines beginning of function scope.
